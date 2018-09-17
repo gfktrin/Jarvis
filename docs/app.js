@@ -14,8 +14,14 @@ $(function () {
 			'acessar *term': function(term) {
 				windowJanela = window.open('http://'+term, 'teste');
 			},
+			'abrir facebook': function() {
+				facebook = window.open('http://www.facebook.com');
+			},
 			'fechar guia': function(term) {
 				 windowJanela.close();
+				 if(facebook){
+					 facebook.close();
+				 }
 			},
 			'fundo *term': function(term) {
 				if(term == "vermelho"){
@@ -38,7 +44,7 @@ $(function () {
 
 	  //Idioma...
 	  annyang.setLanguage("pt-BR");
-	  
+
 	  // Adicionar comandos para a API (annyang)
 	  annyang.addCommands(commands);
 
