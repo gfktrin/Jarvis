@@ -15,7 +15,7 @@ $(function () {
 			'acessar *term': function(term) {
 				windowJanela = window.open('http://'+term, 'teste');
 			},
-			'facebook': function() {
+			'abrir facebook': function() {
 				facebook = window.open('http://www.facebook.com');
 			},
 			'fechar guia': function(term) {
