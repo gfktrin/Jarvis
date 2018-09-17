@@ -1,5 +1,6 @@
 $(function () {
 	var windowJanela;
+	var facebook;
 	// configurando o annyAng
 	if( annyang ) {
 		// Definicao do primeiro comando. Primeiro texto de chamada e depois a funcao ou texto a escrever
