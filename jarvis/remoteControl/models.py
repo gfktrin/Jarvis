@@ -8,9 +8,9 @@ class Machine(models.Model):
   name = models.CharField(max_length=50)
   registered = models.DateTimeField(default=timezone.now)
   location = models.CharField(max_length=200, blank=True, default='')
-  notes = models.TextField()
-  mac = models.CharField(max_length=50)
-  ip = models.CharField(max_length=50)
+  notes = models.TextField(blank=True)
+  mac = models.CharField(max_length=50, blank=True)
+  ip = models.CharField(max_length=50, blank=True)
   lastConnected = models.DateTimeField(default=timezone.now, blank=True)
 
   def refreshLastConnected(self):
@@ -26,6 +26,7 @@ class Order(models.Model):
   machineId = models.ForeignKey('Machine', on_delete=models.CASCADE)
   createdAt = models.DateTimeField(default=timezone.now, blank=True)
   executed = models.BooleanField()
+  silentMode = models.BooleanField(default=False)
 
   def __str__(self):
         return self.command
