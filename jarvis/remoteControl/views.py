@@ -19,8 +19,10 @@ def order_return(request,machine):
 
 def submit_machine_response(request):
     if request.method == 'POST':
+        machine_response = dict(request.POST)
         print('Post: "%s"' % request.POST)
         print('Body: "%s"' % request.body)
+        print(machine_response)
         return HttpResponse('')
     if request.method == 'GET':
         return render(request, 'remoteControl/token.html', {})
