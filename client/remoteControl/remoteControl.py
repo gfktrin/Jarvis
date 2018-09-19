@@ -17,7 +17,7 @@ class RemoteControl:
 
   def getCleanOrder(self):
     orderJson = json.loads(self.order)
-    return orderJson['order'].lower()
+    return orderJson['command'].lower()
 
   def checkExecuted(self):
     orderJson = json.loads(self.order)

@@ -9,7 +9,7 @@ def order_return(request,machine):
     order = Order.objects.filter(machineId=machine).latest('createdAt')
     jsonResponse = {
         'orderId' : str(order.id),
-        'order' : order.command,
+        'command' : order.command,
         'machine' : str(order.machineId),
         'createdAt' : str(order.createdAt),
         'executed' : str(order.executed),
