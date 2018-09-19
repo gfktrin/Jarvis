@@ -3,4 +3,5 @@ from remoteControl import RemoteControl
 ordersUrl = 'http://localhost:8000/1/order'
 
 control = RemoteControl(ordersUrl=ordersUrl)
-print(control.getCleanOrder())
+print(control.executeOrder())
+print(control.checkExecuted())
