@@ -17,7 +17,7 @@ class RemoteControl:
 
   def getCleanOrder(self):
     orderJson = json.loads(self.order)
-    return orderJson['order']
+    return orderJson['order'].lower()
 
   def checkExecuted(self):
     orderJson = json.loads(self.order)
@@ -28,18 +28,19 @@ class RemoteControl:
     csrftoken = response.cookies['csrftoken']
     payload = {
               'executed':'True',
-                }
+              }
     headers = {
               'Referer': self.response_url,
               'X-CSRFToken': csrftoken
               }
     cookie = {'csrftoken':csrftoken}
     requests.post(self.response_url, data=payload, headers=headers,cookies=cookie)
+    self.order = None
 
   def executeOrder(self):
     self.getOrderJson()
     if(self.checkExecuted() == 'False'):
-      self.sendResponse()
-      return 'OK'
+      if(self.getCleanOrder() == 'desligar'):
+        self.sendResponse()
     else:
       return 'no orders to execute'
