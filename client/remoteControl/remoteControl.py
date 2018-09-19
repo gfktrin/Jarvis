@@ -1,6 +1,6 @@
 import requests
 import json
-
+import time
 
 class RemoteControl:
   def __init__(
@@ -24,6 +24,7 @@ class RemoteControl:
     return orderJson['executed']
 
   def sendResponse(self):
+    time.sleep(1)
     response = requests.get(self.response_url)
     csrftoken = response.cookies['csrftoken']
     payload = {
