@@ -23,13 +23,12 @@ def submit_machine_response(request,machine):
     if request.method == 'POST':
         machine.update(lastConnected=timezone.now())
         machine_response = dict(request.POST)
-        orderResponse = machine_response['order'][0]
         order = Order.objects.filter(id=machine_response['orderId'][0])
-        print(order)
+        command = order.values('command')[0]['command']
         print(machine_response)
         if(machine_response['executed'][0]=='True'):
             order.update(executed=True)
-        if orderResponse == 'informações':
+        if command == 'informações':
             print('ok')
             machine.update(os=machine_response['os'][0])
             machine.update(ip=machine_response['ip'][0])

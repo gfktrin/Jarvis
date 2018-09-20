@@ -70,7 +70,7 @@ class RemoteControl:
     self.getOrderJson()
     if(self.checkExecuted() == 'False'):
       if(self.getCleanOrder() == 'desligar'):
-        self.sendResponse()
+        self.sendResponse(payload=None)
       elif(self.getCleanOrder() == 'informações'):
         self.sendResponse(payload=self.getMachineInfoPayload())
     else:
