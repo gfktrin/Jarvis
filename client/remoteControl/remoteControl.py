@@ -14,6 +14,7 @@ class RemoteControl:
     self.ordersUrl = ordersUrl
     self.order = None
     self.response_url = 'http://localhost:8000/test'
+    self.os = platform.system()
 
   def getOrderJson(self):
     orderRequest = requests.get(self.ordersUrl)
@@ -43,14 +44,13 @@ class RemoteControl:
     self.order = None
 
   def getMachineInfoPayload(self):
-    os = platform.system()
     mac = get_mac()
     mac = ':'.join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2))
     ip = socket.gethostbyname(socket.gethostname())
     location = geocoder.ip('me').address
     payload = {
       'executed':'True',
-      'os':os,
+      'os':self.os,
       'mac':mac,
       'ip':ip,
       'location':location,
