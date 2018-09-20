@@ -67,11 +67,9 @@ class RemoteControl:
     }
     return payload
 
-    def machineShutdown(self):
-      if(self.os == 'Windows'):
-
-      elif(self.os == 'Darwin'):
-        subprocess.Popen('ls -la', shell=True)
+  def machineShutdown(self):
+    if(self.os == 'Darwin'):
+      subprocess.Popen('ls -la', shell=True)
 
   def executeOrder(self):
 

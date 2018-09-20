@@ -4,8 +4,8 @@ import time
 machineUrl = 'http://localhost:8000/1'
 
 control = RemoteControl(machineUrl=machineUrl)
-control.executeOrder()
+loop_control = False
 
-# for i in range(10):
-  # control.executeOrder()
-  # time.sleep(1)
+while loop_control == False:
+   control.executeOrder()
+   time.sleep(1)
