@@ -1,9 +1,9 @@
 from remoteControl import RemoteControl
 import time
 
-ordersUrl = 'http://localhost:8000/1/order'
+machineUrl = 'http://localhost:8000/1'
 
-control = RemoteControl(ordersUrl=ordersUrl)
+control = RemoteControl(machineUrl=machineUrl)
 control.executeOrder()
 
 # for i in range(10):

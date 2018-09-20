@@ -9,15 +9,15 @@ import geocoder
 class RemoteControl:
   def __init__(
     self,
-    ordersUrl,
+    machineUrl,
   ):
-    self.ordersUrl = ordersUrl
+    self.machineUrl = machineUrl
     self.order = None
-    self.response_url = 'http://localhost:8000/test'
     self.os = platform.system()
 
   def getOrderJson(self):
-    orderRequest = requests.get(self.ordersUrl)
+    orderUrl = self.machineUrl+'/order'
+    orderRequest = requests.get(orderUrl)
     self.order = orderRequest.text
 
   def getCleanOrder(self):
@@ -29,18 +29,19 @@ class RemoteControl:
     return orderJson['executed']
 
   def sendResponse(self, payload):
+    responseUrl = self.machineUrl+'/response'
     time.sleep(1)
-    response = requests.get(self.response_url)
+    response = requests.get(responseUrl)
     csrftoken = response.cookies['csrftoken']
     # payload = {
     #           'executed':'True',
     #           }
     headers = {
-              'Referer': self.response_url,
+              'Referer': responseUrl,
               'X-CSRFToken': csrftoken
               }
     cookie = {'csrftoken':csrftoken}
-    requests.post(self.response_url, data=payload, headers=headers,cookies=cookie)
+    requests.post(responseUrl, data=payload, headers=headers,cookies=cookie)
     self.order = None
 
   def getMachineInfoPayload(self):

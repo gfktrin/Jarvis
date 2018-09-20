@@ -17,7 +17,7 @@ def order_return(request,machine):
     }
     return JsonResponse(jsonResponse)
 
-def submit_machine_response(request):
+def submit_machine_response(request,machine):
     if request.method == 'POST':
         machine_response = dict(request.POST)
         print('Post: "%s"' % request.POST)
