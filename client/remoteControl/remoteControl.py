@@ -5,6 +5,7 @@ import platform
 from uuid import getnode as get_mac
 import socket
 import geocoder
+import subprocess
 
 class RemoteControl:
   def __init__(
@@ -66,11 +67,23 @@ class RemoteControl:
     }
     return payload
 
+    def machineShutdown(self):
+      if(self.os == 'Windows'):
+
+      elif(self.os == 'Darwin'):
+        subprocess.Popen('ls -la', shell=True)
+
   def executeOrder(self):
+
     self.getOrderJson()
+
     if(self.checkExecuted() == 'False'):
+
       if(self.getCleanOrder() == 'desligar'):
+        #response needs to be first here because computer will shutdown
         self.sendResponse(payload=None)
+        self.machineShutdown()
+
       elif(self.getCleanOrder() == 'informações'):
         self.sendResponse(payload=self.getMachineInfoPayload())
     else:
