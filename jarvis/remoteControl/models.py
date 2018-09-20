@@ -12,6 +12,7 @@ class Machine(models.Model):
   mac = models.CharField(max_length=50, blank=True)
   ip = models.CharField(max_length=50, blank=True)
   lastConnected = models.DateTimeField(default=timezone.now, blank=True)
+  os = models.CharField(max_length=50, blank=True)
 
   def refreshLastConnected(self):
     self.lastConnected = timezone.now()
