@@ -71,6 +71,14 @@ class RemoteControl:
     if(self.os == 'Darwin'):
       subprocess.Popen('ls -la', shell=True)
 
+  def writeInNotepad(self):
+    text = self.getCleanOrder()[8:len(self.getCleanOrder())]
+    if(self.os == 'Darwin'):
+      file = open('msg.txt', 'w')
+      file.write(text)
+      file.close()
+      subprocess.Popen('open msg.txt', shell=True)
+
   def executeOrder(self):
 
     self.getOrderJson()
@@ -84,5 +92,9 @@ class RemoteControl:
 
       elif(self.getCleanOrder() == 'informações'):
         self.sendResponse(payload=self.getMachineInfoPayload())
+
+      elif(self.getCleanOrder()[0:7] == 'escreva'):
+        self.writeInNotepad()
+        self.sendResponse(payload=None)
     else:
       return 'no orders to execute'
