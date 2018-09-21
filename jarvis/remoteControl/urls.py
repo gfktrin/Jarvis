@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('<machine>/order', views.order_return, name='order_return'),
-    path('<machine>/response', views.submit_machine_response, name='machine_response')
+    path('<machine>/response', views.submit_machine_response, name='machine_response'),
+    path('<user>/makeorder', views.user_make_orders, name='makeorder')
 ]

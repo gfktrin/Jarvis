@@ -17,9 +17,12 @@ class RemoteControl:
     self.os = platform.system()
 
   def getOrderJson(self):
-    orderUrl = self.machineUrl+'/order'
-    orderRequest = requests.get(orderUrl)
-    self.order = orderRequest.text
+    try:
+      orderUrl = self.machineUrl+'/order'
+      orderRequest = requests.get(orderUrl)
+      self.order = orderRequest.text
+    except:
+      return 'server offline'
 
   def getCleanOrder(self):
     orderJson = json.loads(self.order)
@@ -30,8 +33,11 @@ class RemoteControl:
     return orderJson['orderId']
 
   def checkExecuted(self):
-    orderJson = json.loads(self.order)
-    return orderJson['executed']
+    if(self.order):
+      orderJson = json.loads(self.order)
+      return orderJson['executed']
+    else:
+      return 'order not valid'
 
   def sendResponse(self, payload):
     responseUrl = self.machineUrl+'/response'

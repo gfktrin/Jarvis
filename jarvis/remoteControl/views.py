@@ -39,3 +39,6 @@ def submit_machine_response(request,machine):
         return HttpResponse('')
     if request.method == 'GET':
         return render(request, 'remoteControl/token.html', {})
+
+def user_make_orders(request, user):
+    return render(request, 'remoteControl/makeorder.html', {})
